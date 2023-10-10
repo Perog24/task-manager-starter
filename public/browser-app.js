@@ -71,15 +71,24 @@ formDOM.addEventListener("submit", async (e) => {
   const name = taskInputDOM.value;
 
   try {
-    await axios.post("/api/v1/tasks", { name });
-    showTasks();
-    taskInputDOM.value = "";
-    formAlertDOM.style.display = "block";
-    formAlertDOM.textContent = `Успіх, задача додана`;
-    formAlertDOM.classList.add("text-success");
+    await axios.post("/api/v1/tasks", { name })
+    .then((response) =>{
+      const {message} = response.data;
+      showTasks();
+      taskInputDOM.value = "";
+      formAlertDOM.style.display = "block";
+      formAlertDOM.textContent = message;
+      formAlertDOM.classList.add("text-success");      
+    })
   } catch (error) {
-    formAlertDOM.style.display = "block";
-    formAlertDOM.innerHTML = `Помилка, спробуйте пізніше`;
+    if (error.response) {
+      const {handleError} = error.response.data;
+      formAlertDOM.style.display = "block";
+      formAlertDOM.innerHTML = handleError;      
+    } else {
+      formAlertDOM.style.display = "block";
+      formAlertDOM.innerHTML = `Помилка, спробуйте пізніше`;
+    }
   }
   setTimeout(() => {
     formAlertDOM.style.display = "none";
