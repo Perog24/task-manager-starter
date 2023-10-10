@@ -64,5 +64,6 @@ editFormDOM.addEventListener("submit", async (e) => {
   setTimeout(() => {
     formAlertDOM.style.display = "none";
     formAlertDOM.classList.remove("text-success");
-  }, 3000);
+    window.location.replace("index.html");
+  }, 1500);
 });
