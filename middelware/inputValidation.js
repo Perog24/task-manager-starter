@@ -10,7 +10,7 @@ function validation(req, res, next) {
       if (isNaN(parsedId)) {
          return res.status(400).json({message: "Invalid id parameter"});
       }
-      req.params.id = parsedId; // Оновлюємо req.params.id
+      req.params.id = parsedId; 
    }
    if(req.method === "POST" || req.method === "PATCH") {
       const {name} = req.body;

@@ -55,9 +55,10 @@ editFormDOM.addEventListener("submit", async (e) => {
     formAlertDOM.classList.add("text-success");
   } catch (error) {
     console.error(error);
+    const {handleError} = error.response.data;
     taskNameDOM.value = tempName;
     formAlertDOM.style.display = "block";
-    formAlertDOM.innerHTML = `Помилка, спробуйте пізніше`;
+    formAlertDOM.innerHTML = handleError;
   }
   editBtnDOM.textContent = "Edit";
   setTimeout(() => {
